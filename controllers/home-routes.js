@@ -49,6 +49,10 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+router.get('/sign-up', (req, res) => {
+    res.render('sign-up');
+});
+
 router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -83,7 +87,7 @@ router.get('/post/:id', (req, res) => {
 
             const post = dbPostData.get({ plain: true });
 
-            res.render('single-post', { 
+            res.render('dashboard', { 
                 post,
                 loggedIn: req.session.loggedIn
             });
