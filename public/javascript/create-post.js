@@ -8,9 +8,9 @@ async function newFormHandler(event) {
         method: 'POST',
         body: JSON.stringify({
             title,
-            post_content 
+            post_content
         }),
-        headers: {
+        header: {
             'Content-Type': 'application/json'
         }
     });
@@ -22,4 +22,4 @@ async function newFormHandler(event) {
     }
 }
 
-document.querySelector('.new-post-form').addEventListener('submit', newFormHandler)
+document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);

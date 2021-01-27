@@ -5,12 +5,13 @@ const { Post, User, Comment } = require('../models');
 
 router.get('/', (req, res) => {
     console.log(req.session);
+
     Post.findAll({
         attributes: [
             'id',
-            'post_url',
             'title',
             'created_at',
+            'post_content'
         ],
         include: [
             {
@@ -50,7 +51,12 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/sign-up', (req, res) => {
-    res.render('sign-up');
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+
+    res.render('signup');
 });
 
 router.get('/post/:id', (req, res) => {
@@ -60,9 +66,9 @@ router.get('/post/:id', (req, res) => {
         },
         attributes: [
             'id',
-            'post_url',
             'title',
-            'created_at'
+            'created_at',
+            'post_content'
         ],
         include: [
             {
@@ -87,7 +93,7 @@ router.get('/post/:id', (req, res) => {
 
             const post = dbPostData.get({ plain: true });
 
-            res.render('dashboard', { 
+            res.render('single-post', { 
                 post,
                 loggedIn: req.session.loggedIn
             });
